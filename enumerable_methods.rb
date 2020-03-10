@@ -23,7 +23,11 @@ module Enumerable
   end
 
   def my_select
+    return to_enum unless block_given?
 
+    arr_to_r = []
+    my_each { |x| arr_to_r << x if yield (x) }
+    arr_to_r
   end
 
   def my_all?
