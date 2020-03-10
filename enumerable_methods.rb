@@ -1,7 +1,14 @@
 module Enumerable
 
   def my_each
+    return to_enum unless block_given?
 
+    array = is_a?(Range) ? to_a : self
+    counter = 0
+    while counter < array.length
+      yield(array[counter])
+      counter += 1
+    end
   end
 
   def my_each_with_index
