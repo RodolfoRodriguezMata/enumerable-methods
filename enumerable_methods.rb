@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Enumerable
 
   def my_each
@@ -30,7 +32,7 @@ module Enumerable
     arr_to_r
   end
 
-  def my_all? (pattern == nil)
+  def my_all? (pattern = nil)
     if block_given?
       my_each { |x| return false unless yield(x) }
     elsif pattern.class == Class
@@ -45,7 +47,7 @@ module Enumerable
     true
   end
 
-  def my_any? (pattern == nil)
+  def my_any? (pattern = nil)
     if block_given?
       my_each { |x| return true if yield(x) }
     elsif pattern.class == Class
@@ -60,7 +62,7 @@ module Enumerable
     false
   end
 
-  def my_none? (pattern == nil)
+  def my_none? (pattern = nil)
     if block_given?
       my_each { |x| return false if yield(x) }
     elsif pattern.class == Class
@@ -75,11 +77,11 @@ module Enumerable
     true
   end
 
-  def my_count (pattern == nil)
+  def my_count (pattern = nil)
     counter = 0
     if block_given?
       my_each { |x| counter += 1 if yield(x) }
-    elsif !pattern = nil
+    elsif !pattern == nil
       my_each { |x| counter += 1 if x == pattern }
     else
      my_each { counter += 1 }
