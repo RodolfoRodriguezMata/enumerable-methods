@@ -88,7 +88,14 @@ module Enumerable
   end
 
   def my_map
-
+    return to_enum unless block_given?
+    arr_to_r = []
+    if block
+      my_each_with_index { | x, i | arr_to_r[i] = block.call(x) }
+    else
+      my_each_with_index { | x, i | arr_to_r[i] = yield(x) }
+    end
+    arr_to_r
   end
 
   def my_inject
