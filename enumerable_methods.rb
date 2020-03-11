@@ -75,8 +75,16 @@ module Enumerable
     true
   end
 
-  def my_count
-
+  def my_count (pattern == nil)
+    counter = 0
+    if block_given?
+      my_each { |x| counter += 1 if yield(x) }
+    elsif !pattern = nil
+      my_each { |x| counter += 1 if x == pattern }
+    else
+     my_each { counter += 1 }
+    end
+    counter
   end
 
   def my_map
