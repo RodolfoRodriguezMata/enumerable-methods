@@ -30,8 +30,19 @@ module Enumerable
     arr_to_r
   end
 
-  def my_all?
-
+  def my_all? (pattern == nil)
+    if block_given?
+      my_each { |x| return false unless yield(x) }
+    elsif pattern.class == Class
+      my_each { |x| return false unless x.is_a? pattern }
+    elsif pattern.class == Regexp
+      my_each { |x| return false unless x.match? pattern }
+    elsif !pattern.nil?
+      my_each { |x| return false unless x == pattern }
+    else
+      my_each { |x| return false unless x }
+    end
+    true
   end
 
   def my_any?
