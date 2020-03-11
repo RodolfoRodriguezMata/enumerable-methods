@@ -60,8 +60,19 @@ module Enumerable
     false
   end
 
-  def my_none?
-
+  def my_none? (pattern == nil)
+    if block_given?
+      my_each { |x| return false if yield(x) }
+    elsif pattern.class == Class
+      my_each { |x| return false if x.is_a? pattern }
+    elsif pattern.class == Regexp
+      my_each { |x| return false if x.match? pattern }
+    elsif !pattern.nil?
+      my_each { |x| return false if x == pattern}
+    else
+      my_each { |x| return false if x }
+    end
+    true
   end
 
   def my_count
