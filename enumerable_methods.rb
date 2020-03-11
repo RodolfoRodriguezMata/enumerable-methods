@@ -45,7 +45,7 @@ module Enumerable
     true
   end
 
-  def my_any?
+  def my_any? (pattern == nil)
     if block_given?
       my_each { |x| return true if yield(x) }
     elsif pattern.class == Class
