@@ -46,7 +46,18 @@ module Enumerable
   end
 
   def my_any?
-
+    if block_given?
+      my_each { |x| return true if yield(x) }
+    elsif pattern.class == Class
+      my_each { |x| return true if x.is_a? pattern }
+    elsif pattern.class == Regexp
+      my_each { |x| return true if x.match? pattern }
+    elsif !pattern.nil?
+      my_each { |x| return true if x == pattern }
+    else
+      my_each { |x| return true if x }
+    end
+    false
   end
 
   def my_none?
