@@ -52,35 +52,35 @@ Project: Advanced building blocks - Enumerables
 ## About The Project
 
 Built for Microverse following these requirements: 
-#### requirement 1
+#### Requirement 1
 - [x] Build a method #my_each that takes an array and performs an operation each element within
 
-#### requirement 2
+#### Requirement 2
 - [x] Build a method #my_each_with_index that takes an array and performs an operation each element within
 - [x] Can take a starting point as an argument
 
-#### requirement 3
+#### Requirement 3
 - [x] Build a method #my_select that uses #my_each for the internal logic to return an array that complies with the given parameters
 
-#### requirement 4
+#### Requirement 4
 - [x] Build a method #my_all? that uses #my_each to return a boolean value depending on the parameters provided
 
-#### requirement 5
+#### Requirement 5
 - [x] Build a method #my_any? that uses #my_each to return a boolean value if any element complies with the paramaters provided
 
-#### requirement 6
+#### Requirement 6
 - [x] Build a method #my_none? that uses #my_each to return a boolean value if no element complies with the parameter
 
-#### requirement 7
+#### Requirement 7
 - [x] Build a method #my_count that uses #my_each to return an integer that represents the amount of instances of the array that comply with a given parameter
 
-#### requirement 8
+#### Requirement 8
 - [x] Build a method #my_map that takes a block or a proc as arguments
 
-#### requirement 9
+#### Requirement 9
 - [x] Build a method #my_inject that works through an array to perform a given block through the use of #my_each and that differentiates through the comparison of symbols in the parameters
 
-#### requirement 10
+#### Requirement 10
 - [x] Build a method #multiply_els that uses #my_inject to multiply the elements in a given array
 
 and following this lesson :
