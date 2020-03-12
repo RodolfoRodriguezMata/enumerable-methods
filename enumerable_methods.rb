@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
 module Enumerable
-
   def my_each
     return to_enum unless block_given?
 
@@ -28,13 +25,13 @@ module Enumerable
     return to_enum unless block_given?
 
     arr_to_r = []
-    my_each { |x| arr_to_r << x if yield (x) }
+    my_each { |x| arr_to_r << x if yield x }
     arr_to_r
   end
 
-  def my_all? (pattern = nil)
+  def my_all?(pattern = nil)
     if block_given?
-      my_each { |x| return false unless yield(x) }
+      my_each { |x| return false unless yield x }
     elsif pattern.class == Class
       my_each { |x| return false unless x.is_a? pattern }
     elsif pattern.class == Regexp
@@ -47,7 +44,7 @@ module Enumerable
     true
   end
 
-  def my_any? (pattern = nil)
+  def my_any?(pattern = nil)
     if block_given?
       my_each { |x| return true if yield(x) }
     elsif pattern.class == Class
@@ -62,7 +59,7 @@ module Enumerable
     false
   end
 
-  def my_none? (pattern = nil)
+  def my_none?(pattern = nil)
     if block_given?
       my_each { |x| return false if yield(x) }
     elsif pattern.class == Class
@@ -70,38 +67,55 @@ module Enumerable
     elsif pattern.class == Regexp
       my_each { |x| return false if x.match? pattern }
     elsif !pattern.nil?
-      my_each { |x| return false if x == pattern}
+      my_each { |x| return false if x == pattern }
     else
       my_each { |x| return false if x }
     end
     true
   end
 
-  def my_count (pattern = nil)
+  def my_count(pattern = nil)
     counter = 0
     if block_given?
       my_each { |x| counter += 1 if yield(x) }
-    elsif !pattern == nil
+    elsif !pattern.nil?
       my_each { |x| counter += 1 if x == pattern }
     else
-     my_each { counter += 1 }
+      my_each { counter += 1 }
     end
     counter
   end
 
   def my_map
     return to_enum unless block_given?
+
     arr_to_r = []
     if block
-      my_each_with_index { | x, i | arr_to_r[i] = block.call(x) }
+      my_each_with_index { |x, i| arr_to_r[i] = block.call(x) }
     else
-      my_each_with_index { | x, i | arr_to_r[i] = yield(x) }
+      my_each_with_index { |x, i| arr_to_r[i] = yield(x) }
     end
     arr_to_r
   end
 
-  def my_inject
-
+  def my_inject(start_val = nil, sym = nil)
+    array_to_r = to_a
+    if block_given?
+      result = start_val
+      if start_val.nil?
+        result = array_to_r[0]
+        array_to_r = array_to_r[1..-1]
+      end
+      array_to_r.my_each { |x| result = yield(result, x) }
+      result
+    elsif start_val.class == Symbol
+      result = array_to_r[0]
+      array_to_r[1..-1].my_each { |x| result = result.send(start_val, x) }
+      result
+    elsif sym.class == Symbol
+      result = start_val
+      array_to_r.my_each { |x| result = result.send(sym, x) }
+      result
+    end
   end
-
 end
