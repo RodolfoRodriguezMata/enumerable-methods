@@ -86,11 +86,11 @@ module Enumerable
     counter
   end
 
-  def my_map
+  def my_map(proc = nil)
     return to_enum unless block_given?
 
     arr_to_r = []
-    if block
+    if !proc.nil?
       my_each_with_index { |x, i| arr_to_r[i] = block.call(x) }
     else
       my_each_with_index { |x, i| arr_to_r[i] = yield(x) }
